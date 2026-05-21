@@ -9,11 +9,23 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as StatePlaygroundRouteImport } from './routes/state-playground'
+import { Route as StateChallengeRouteImport } from './routes/state-challenge'
 import { Route as CompositionRouteImport } from './routes/composition'
 import { Route as ComponentsPlaygroundRouteImport } from './routes/components-playground'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
+const StatePlaygroundRoute = StatePlaygroundRouteImport.update({
+  id: '/state-playground',
+  path: '/state-playground',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StateChallengeRoute = StateChallengeRouteImport.update({
+  id: '/state-challenge',
+  path: '/state-challenge',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CompositionRoute = CompositionRouteImport.update({
   id: '/composition',
   path: '/composition',
@@ -40,12 +52,16 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/components-playground': typeof ComponentsPlaygroundRoute
   '/composition': typeof CompositionRoute
+  '/state-challenge': typeof StateChallengeRoute
+  '/state-playground': typeof StatePlaygroundRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/components-playground': typeof ComponentsPlaygroundRoute
   '/composition': typeof CompositionRoute
+  '/state-challenge': typeof StateChallengeRoute
+  '/state-playground': typeof StatePlaygroundRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,13 +69,34 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/components-playground': typeof ComponentsPlaygroundRoute
   '/composition': typeof CompositionRoute
+  '/state-challenge': typeof StateChallengeRoute
+  '/state-playground': typeof StatePlaygroundRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/components-playground' | '/composition'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/components-playground'
+    | '/composition'
+    | '/state-challenge'
+    | '/state-playground'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/components-playground' | '/composition'
-  id: '__root__' | '/' | '/about' | '/components-playground' | '/composition'
+  to:
+    | '/'
+    | '/about'
+    | '/components-playground'
+    | '/composition'
+    | '/state-challenge'
+    | '/state-playground'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/components-playground'
+    | '/composition'
+    | '/state-challenge'
+    | '/state-playground'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -67,10 +104,26 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   ComponentsPlaygroundRoute: typeof ComponentsPlaygroundRoute
   CompositionRoute: typeof CompositionRoute
+  StateChallengeRoute: typeof StateChallengeRoute
+  StatePlaygroundRoute: typeof StatePlaygroundRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/state-playground': {
+      id: '/state-playground'
+      path: '/state-playground'
+      fullPath: '/state-playground'
+      preLoaderRoute: typeof StatePlaygroundRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/state-challenge': {
+      id: '/state-challenge'
+      path: '/state-challenge'
+      fullPath: '/state-challenge'
+      preLoaderRoute: typeof StateChallengeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/composition': {
       id: '/composition'
       path: '/composition'
@@ -107,6 +160,8 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   ComponentsPlaygroundRoute: ComponentsPlaygroundRoute,
   CompositionRoute: CompositionRoute,
+  StateChallengeRoute: StateChallengeRoute,
+  StatePlaygroundRoute: StatePlaygroundRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -7,7 +7,7 @@ export const Route = createRootRoute({
                 <h1 className="text-5xl">
                     tapaScript | Prod-Ready Architecture
                 </h1>
-                <nav className="text-3xl space-x-4 m-2">
+                <nav className=" flex flex-wrap text-3xl space-x-4 m-2">
                     <Link
                         to="/"
                         className="[&.active]:font-bold">
@@ -27,6 +27,16 @@ export const Route = createRootRoute({
                         to="/composition"
                         className="[&.active]:font-bold">
                         Composition
+                    </Link>
+                    <Link
+                        to="/state-playground"
+                        className="[&.active]:font-bold">
+                        State
+                    </Link>
+                    <Link
+                        to="/state-challenge"
+                        className="[&.active]:font-bold">
+                        State Challenge
                     </Link>
                 </nav>
             </header>
